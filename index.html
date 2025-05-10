@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Playground de Bots HTML</title>
+    <title>Robos CriadoS por Vando fiel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body, html {
@@ -13,9 +13,41 @@
             background: #181c20;
             color: #e0e6eb;
         }
+        .navbar {
+            width: 100%;
+            background: #23272b;
+            color: #64ffda;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            height: 60px;
+            box-sizing: border-box;
+        }
+        .navbar-logo {
+            font-weight: bold;
+            font-size: 1.3em;
+            letter-spacing: 1px;
+        }
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar-menu li a {
+            color: #64ffda;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .navbar-menu li a:hover {
+            color: #43c6ac;
+        }
         .container {
             display: flex;
-            height: 100vh;
+            height: calc(100vh - 100px);
         }
         .sidebar {
             width: 250px;
@@ -147,9 +179,53 @@
             background: #64ffda;
             color: #181c20;
         }
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+        .modal-content {
+            background: #23272b;
+            color: #e0e6eb;
+            padding: 32px 24px 24px 24px;
+            border-radius: 10px;
+            min-width: 320px;
+            box-shadow: 0 4px 32px #0008;
+            text-align: center;
+        }
+        footer {
+            width: 100%;
+            background: #23272b;
+            color: #90a4ae;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 1em;
+            letter-spacing: 1px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; box-shadow: none; }
+            .main { padding: 16px; }
+        }
     </style>
 </head>
 <body>
+<nav class="navbar">
+  <div class="navbar-logo">Robos CriadoS por Vando fiel</div>
+  <ul class="navbar-menu">
+    <li><a href="#">Início</a></li>
+    <li><a href="#">Bots</a></li>
+    <li><a href="#">Sobre</a></li>
+    <li><a href="#" onclick="abrirCadastroEmail();return false;">Cadastro de E-mail</a></li>
+  </ul>
+</nav>
 <div class="container">
     <div class="sidebar">
         <h2>Bots Salvos</h2>
@@ -173,6 +249,21 @@
 </div>
 <button id="back-btn" onclick="closeFullscreen()">Voltar</button>
 <iframe id="fullscreen-iframe"></iframe>
+
+<!-- Modal de Cadastro de E-mail -->
+<div id="modal-cadastro-email" class="modal-bg" style="display:none;">
+  <div class="modal-content">
+    <h2>Cadastre seu E-mail</h2>
+    <input type="email" id="input-email" placeholder="Seu e-mail" style="width:100%;padding:8px;margin-bottom:12px;">
+    <button onclick="enviarEmail()" style="width:100%;padding:10px 0;background:#64ffda;color:#181c20;font-weight:bold;border:none;border-radius:5px;">Cadastrar</button>
+    <button onclick="fecharCadastroEmail()" style="width:100%;padding:10px 0;margin-top:8px;background:#23272b;color:#64ffda;font-weight:bold;border:1px solid #64ffda;border-radius:5px;">Fechar</button>
+    <div id="email-feedback" style="margin-top:10px;font-size:0.95em;"></div>
+  </div>
+</div>
+
+<footer>
+    &copy; 2024 Robos CriadoS por Vando fiel &mdash; Feito com 💚 por você!
+</footer>
 
 <script>
     // HORA DE BRASÍLIA
@@ -330,6 +421,32 @@
         backBtn.style.display = 'none';
         iframe.srcdoc = '';
         document.body.style.overflow = '';
+    }
+
+    // Modal de cadastro de e-mail
+    function abrirCadastroEmail() {
+        document.getElementById('modal-cadastro-email').style.display = 'flex';
+        document.getElementById('input-email').value = '';
+        document.getElementById('email-feedback').textContent = '';
+    }
+    function fecharCadastroEmail() {
+        document.getElementById('modal-cadastro-email').style.display = 'none';
+    }
+    function enviarEmail() {
+        const email = document.getElementById('input-email').value.trim();
+        const feedback = document.getElementById('email-feedback');
+        if (!email || !email.includes('@')) {
+            feedback.textContent = 'Digite um e-mail válido!';
+            feedback.style.color = '#ff5252';
+            return;
+        }
+        // Aqui você pode salvar no localStorage, enviar para backend, etc.
+        feedback.textContent = 'E-mail cadastrado com sucesso!';
+        feedback.style.color = '#64ffda';
+        // Exemplo: salvar no localStorage
+        let emails = JSON.parse(localStorage.getItem('emails') || '[]');
+        emails.push(email);
+        localStorage.setItem('emails', JSON.stringify(emails));
     }
 
     // Inicializa com o primeiro bot
