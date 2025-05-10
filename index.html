@@ -101,6 +101,13 @@
         .actions button:hover {
             background: #43c6ac;
         }
+        #delete-bot-btn {
+            background: #ff5252;
+            color: #fff;
+        }
+        #delete-bot-btn:hover {
+            background: #d32f2f;
+        }
         #fullscreen-iframe {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -125,6 +132,21 @@
             cursor: pointer;
             font-size: 1em;
         }
+        #novo-bot-btn {
+            margin-bottom: 12px;
+            background: #23272b;
+            color: #64ffda;
+            border: 1px solid #64ffda;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        #novo-bot-btn:hover {
+            background: #64ffda;
+            color: #181c20;
+        }
     </style>
 </head>
 <body>
@@ -136,6 +158,8 @@
         </div>
     </div>
     <div class="main">
+        <button id="novo-bot-btn">Novo Bot</button>
+        <div id="hora-brasilia" style="font-size:1.2em;margin-bottom:16px;color:#64ffda;"></div>
         <div class="editor-label">Nome do Bot:</div>
         <input type="text" id="bot-name" placeholder="Digite o nome do bot">
         <div class="editor-label">Código do Bot (HTML/JS/CSS):</div>
@@ -143,6 +167,7 @@
         <div class="actions">
             <button onclick="saveBot()">Salvar Bot</button>
             <button onclick="runBot()">Rodar Bot em Tela Cheia</button>
+            <button onclick="deleteBot()" id="delete-bot-btn">Apagar Bot</button>
         </div>
     </div>
 </div>
@@ -150,6 +175,21 @@
 <iframe id="fullscreen-iframe"></iframe>
 
 <script>
+    // HORA DE BRASÍLIA
+    function atualizarHoraBrasilia() {
+        const agora = new Date();
+        const options = {
+            timeZone: 'America/Sao_Paulo',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        const hora = agora.toLocaleTimeString('pt-BR', options);
+        document.getElementById('hora-brasilia').textContent = 'Hora de Brasília: ' + hora;
+    }
+    setInterval(atualizarHoraBrasilia, 1000);
+    atualizarHoraBrasilia();
+
     // Carrega bots do localStorage ou usa exemplos
     function getSavedBots() {
         const saved = localStorage.getItem('bots');
@@ -241,6 +281,35 @@
         localStorage.setItem('bots', JSON.stringify(bots));
         renderBotList();
         alert('Bot salvo com sucesso!');
+    }
+
+    // Botão Novo Bot
+    document.getElementById('novo-bot-btn').onclick = function() {
+        botNameInput.value = '';
+        botEditor.value = '';
+        currentBotIndex = -1; // Nenhum bot selecionado
+        renderBotList();
+    };
+
+    // Botão Apagar Bot
+    function deleteBot() {
+        if (currentBotIndex === -1 || !bots[currentBotIndex]) {
+            alert('Nenhum bot selecionado para apagar!');
+            return;
+        }
+        if (!confirm('Tem certeza que deseja apagar este bot?')) return;
+        bots.splice(currentBotIndex, 1);
+        if (bots.length > 0) {
+            currentBotIndex = 0;
+            botNameInput.value = bots[0].name;
+            botEditor.value = bots[0].code;
+        } else {
+            currentBotIndex = -1;
+            botNameInput.value = '';
+            botEditor.value = '';
+        }
+        localStorage.setItem('bots', JSON.stringify(bots));
+        renderBotList();
     }
 
     // Rodar bot em tela cheia
