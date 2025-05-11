@@ -1,456 +1,852 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Robos CriadoS por Vando fiel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background: #181c20;
-            color: #e0e6eb;
-        }
-        .navbar {
-            width: 100%;
-            background: #23272b;
-            color: #64ffda;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            height: 60px;
-            box-sizing: border-box;
-        }
-        .navbar-logo {
-            font-weight: bold;
-            font-size: 1.3em;
-            letter-spacing: 1px;
-        }
-        .navbar-menu {
-            list-style: none;
-            display: flex;
-            gap: 24px;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar-menu li a {
-            color: #64ffda;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-        .navbar-menu li a:hover {
-            color: #43c6ac;
-        }
-        .container {
-            display: flex;
-            height: calc(100vh - 100px);
-        }
-        .sidebar {
-            width: 250px;
-            background: #23272b;
-            padding: 20px 0;
-            box-shadow: 2px 0 8px #0002;
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar h2 {
-            color: #64ffda;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-        .bot-list {
-            flex: 1;
-            overflow-y: auto;
-        }
-        .bot-item {
-            padding: 12px 24px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            color: #e0e6eb;
-            text-align: left;
-            width: 100%;
-            font-size: 1em;
-            transition: background 0.2s;
-        }
-        .bot-item:hover, .bot-item.active {
-            background: #2a2e32;
-            color: #64ffda;
-        }
-        .main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-        }
-        .editor-label {
-            margin-bottom: 8px;
-            color: #90a4ae;
-        }
-        #bot-name {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 8px;
-            border-radius: 5px;
-            border: 1px solid #373b3e;
-            background: #23272b;
-            color: #e0e6eb;
-            font-size: 1em;
-        }
-        #bot-editor {
-            width: 100%;
-            height: 200px;
-            background: #101214;
-            color: #e0e6eb;
-            border: 1px solid #373b3e;
-            border-radius: 6px;
-            padding: 12px;
-            font-family: 'Fira Mono', 'Consolas', monospace;
-            font-size: 1em;
-            resize: vertical;
-        }
-        .actions {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-        }
-        .actions button {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 5px;
-            background: #64ffda;
-            color: #181c20;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.2s;
-        }
-        .actions button:hover {
-            background: #43c6ac;
-        }
-        #delete-bot-btn {
-            background: #ff5252;
-            color: #fff;
-        }
-        #delete-bot-btn:hover {
-            background: #d32f2f;
-        }
-        #fullscreen-iframe {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw; height: 100vh;
-            border: none;
-            z-index: 9999;
-            display: none;
-            background: #181c20;
-        }
-        #back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 10000;
-            display: none;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 5px;
-            background: #64ffda;
-            color: #181c20;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        #novo-bot-btn {
-            margin-bottom: 12px;
-            background: #23272b;
-            color: #64ffda;
-            border: 1px solid #64ffda;
-            font-weight: bold;
-            border-radius: 5px;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        #novo-bot-btn:hover {
-            background: #64ffda;
-            color: #181c20;
-        }
-        .modal-bg {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-        }
-        .modal-content {
-            background: #23272b;
-            color: #e0e6eb;
-            padding: 32px 24px 24px 24px;
-            border-radius: 10px;
-            min-width: 320px;
-            box-shadow: 0 4px 32px #0008;
-            text-align: center;
-        }
-        footer {
-            width: 100%;
-            background: #23272b;
-            color: #90a4ae;
-            text-align: center;
-            padding: 18px 0 10px 0;
-            font-size: 1em;
-            letter-spacing: 1px;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-        }
-        @media (max-width: 900px) {
-            .container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; box-shadow: none; }
-            .main { padding: 16px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Playground de Bots HTML</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #181c20;
+      color: #e0e6eb;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .navbar {
+      width: 100%;
+      background: #23272b;
+      color: #64ffda;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+    
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    
+    .navbar-menu {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar-menu li {
+      display: inline;
+    }
+    
+    .navbar-menu li a {
+      color: #64ffda;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    
+    .navbar-menu li a:hover {
+      color: #43c6ac;
+    }
+    
+    .container {
+      display: flex;
+      flex-grow: 1;
+      height: calc(100vh - 100px);
+      box-sizing: border-box;
+    }
+    
+    .sidebar {
+      width: 250px;
+      background: #23272b;
+      padding: 20px 0;
+      box-shadow: 2px 0 8px #0002;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    
+    .sidebar h2 {
+      color: #64ffda;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+    }
+    
+    .bot-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px;
+    }
+    
+    .bot-list p {
+      text-align: center;
+      color: #90a4ae;
+      padding: 20px 10px;
+      font-size: 0.9em;
+    }
+    
+    .bot-item {
+      padding: 12px 14px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: #e0e6eb;
+      text-align: left;
+      width: 100%;
+      font-size: 1em;
+      transition: background 0.2s;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+    }
+    
+    .bot-item:hover, .bot-item.active {
+      background: #2a2e32;
+      color: #64ffda;
+    }
+    
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    
+    .editor-label {
+      margin-bottom: 8px;
+      color: #90a4ae;
+    }
+    
+    #bot-name {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 5px;
+      border: 1px solid #373b3e;
+      background: #23272b;
+      color: #e0e6eb;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    
+    #bot-editor {
+      width: 100%;
+      flex-grow: 1;
+      min-height: 200px;
+      background: #101214;
+      color: #e0e6eb;
+      border: 1px solid #373b3e;
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1em;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    
+    .actions button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
+      background: #64ffda;
+      color: #181c20;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+    }
+    
+    .actions button:hover {
+      background: #43c6ac;
+    }
+    
+    #delete-bot-btn {
+      background: #ff5252;
+      color: #fff;
+    }
+    
+    #delete-bot-btn:hover {
+      background: #d32f2f;
+    }
+    
+    #fullscreen-iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 9999;
+      display: none;
+      background: #181c20;
+    }
+    
+    #back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10000;
+      display: none;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
+      background: #64ffda;
+      color: #181c20;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    
+    #back-btn:hover {
+      background: #43c6ac;
+    }
+    
+    #novo-bot-btn {
+      margin-bottom: 12px;
+      background: #23272b;
+      color: #64ffda;
+      border: 1px solid #64ffda;
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    
+    #novo-bot-btn:hover {
+      background: #64ffda;
+      color: #181c20;
+    }
+    
+    /* Planilha Styles */
+    .planilha-full-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #181c20;
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      overflow-y: auto;
+    }
+    
+    .planilha-full-bg.active {
+      display: flex;
+    }
+    
+    .planilha-header {
+      width: 100%;
+      background: #23272b;
+      color: #64ffda;
+      padding: 24px 0 12px 0;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 8px #0004;
+      flex-shrink: 0;
+    }
+    
+    .planilha-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 24px;
+      background: #23272b;
+      border-radius: 10px;
+      padding: 24px 24px 12px 24px;
+      margin: 32px 16px 16px 16px;
+      box-shadow: 0 4px 32px #0008;
+      max-width: 960px;
+      width: 95%;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .planilha-form label {
+      display: flex;
+      flex-direction: column;
+      color: #64ffda;
+      font-size: 1em;
+      min-width: 180px;
+      flex: 1 1 180px;
+      margin-bottom: 0;
+    }
+    
+    .planilha-form input[type="number"],
+    .planilha-form input[type="text"] {
+      margin-top: 4px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #373b3e;
+      background: #181c20;
+      color: #e0e6eb;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    
+    .planilha-form input[readonly] {
+      background: #2a2e32 !important;
+      cursor: default !important;
+    }
+    
+    .planilha-form input#jc-stopwin {
+      color: #64ffda !important;
+    }
+    
+    .planilha-form input#jc-stoploss {
+      color: #ff5252 !important;
+    }
+    
+    .planilha-btns {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+    
+    .planilha-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      background: #ff5252;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      font-weight: bold;
+      padding: 8px 18px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background 0.2s;
+    }
+    
+    .planilha-close:hover {
+      background: #d32f2f;
+    }
+    
+    .planilha-table-wrap {
+      width: 95%;
+      max-width: 1200px;
+      margin: 0 auto 24px auto;
+      overflow-x: auto;
+      background: #23272b;
+      border-radius: 10px;
+      box-shadow: 0 4px 32px #0008;
+      padding: 16px 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+    
+    table.planilha-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9em;
+      margin: 0;
+      min-width: 1000px;
+    }
+    
+    .planilha-table th,
+    .planilha-table td {
+      padding: 8px 10px;
+      text-align: right;
+      border-bottom: 1px solid #373b3e;
+      white-space: nowrap;
+    }
+    
+    .planilha-table th:first-child,
+    .planilha-table td:first-child {
+      text-align: center;
+    }
+    
+    .planilha-table th {
+      background: #181c20;
+      color: #64ffda;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    
+    .planilha-table tr:nth-child(even) {
+      background: #2a2e32;
+    }
+    
+    .planilha-table tr:nth-child(odd) {
+      background: #181c20;
+    }
+    
+    .planilha-table tr.stop-win {
+      background: #1b5e20 !important;
+      color: white !important;
+    }
+    
+    .planilha-table tr.stop-loss {
+      background: #b71c1c !important;
+      color: white !important;
+    }
+    
+    .meta-hit {
+      background-color: #2f855a !important;
+      color: white !important;
+    }
+    
+    .loss-hit {
+      background-color: #c53030 !important;
+      color: white !important;
+    }
+    
+    .meta-btn,
+    .stop-btn,
+    .clear-btn {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 2px;
+      transition: background 0.2s;
+    }
+    
+    .meta-btn {
+      background: #48bb78;
+      color: white;
+    }
+    
+    .meta-btn:hover {
+      background: #2f855a;
+    }
+    
+    .stop-btn {
+      background: #f56565;
+      color: white;
+    }
+    
+    .stop-btn:hover {
+      background: #c53030;
+    }
+    
+    .clear-btn {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .clear-btn:hover {
+      background: #5a6268;
+    }
+    
+    .extra-input {
+      width: 100%;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #373b3e;
+      background: #181c20;
+      color: #e0e6eb;
+      font-size: 0.9em;
+      box-sizing: border-box;
+      margin-top: 4px;
+    }
+    
+    .meta-cell {
+      font-weight: bold;
+      color: #64ffda;
+    }
+    
+    .excesso-cell {
+      font-weight: bold;
+      color: #f56565;
+    }
+  </style>
 </head>
 <body>
-<nav class="navbar">
-  <div class="navbar-logo">Robos CriadoS por Vando fiel</div>
-  <ul class="navbar-menu">
-    <li><a href="#">Início</a></li>
-    <li><a href="#">Bots</a></li>
-    <li><a href="#">Sobre</a></li>
-    <li><a href="#" onclick="abrirCadastroEmail();return false;">Cadastro de E-mail</a></li>
-  </ul>
-</nav>
-<div class="container">
-    <div class="sidebar">
-        <h2>Bots Salvos</h2>
-        <div class="bot-list" id="bot-list">
-            <!-- Bots serão listados aqui -->
-        </div>
-    </div>
-    <div class="main">
-        <button id="novo-bot-btn">Novo Bot</button>
-        <div id="hora-brasilia" style="font-size:1.2em;margin-bottom:16px;color:#64ffda;"></div>
-        <div class="editor-label">Nome do Bot:</div>
-        <input type="text" id="bot-name" placeholder="Digite o nome do bot">
-        <div class="editor-label">Código do Bot (HTML/JS/CSS):</div>
-        <textarea id="bot-editor"></textarea>
-        <div class="actions">
-            <button onclick="saveBot()">Salvar Bot</button>
-            <button onclick="runBot()">Rodar Bot em Tela Cheia</button>
-            <button onclick="deleteBot()" id="delete-bot-btn">Apagar Bot</button>
-        </div>
-    </div>
-</div>
-<button id="back-btn" onclick="closeFullscreen()">Voltar</button>
-<iframe id="fullscreen-iframe"></iframe>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-logo">PlaygroundBots</div>
+    <ul class="navbar-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Sobre</a></li>
+      <li class="dropdown">
+        <a href="#">Gerenciamento</a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="abrirPlanilha()">Planilha de Juros Compostos</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
-<!-- Modal de Cadastro de E-mail -->
-<div id="modal-cadastro-email" class="modal-bg" style="display:none;">
-  <div class="modal-content">
-    <h2>Cadastre seu E-mail</h2>
-    <input type="email" id="input-email" placeholder="Seu e-mail" style="width:100%;padding:8px;margin-bottom:12px;">
-    <button onclick="enviarEmail()" style="width:100%;padding:10px 0;background:#64ffda;color:#181c20;font-weight:bold;border:none;border-radius:5px;">Cadastrar</button>
-    <button onclick="fecharCadastroEmail()" style="width:100%;padding:10px 0;margin-top:8px;background:#23272b;color:#64ffda;font-weight:bold;border:1px solid #64ffda;border-radius:5px;">Fechar</button>
-    <div id="email-feedback" style="margin-top:10px;font-size:0.95em;"></div>
+  <!-- Container Principal -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Bots Salvos</h2>
+      <div class="bot-list" id="bot-list">
+        <button id="novo-bot-btn" onclick="novoBot()">+ Novo Bot</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <input type="text" id="bot-name" placeholder="Nome do Bot">
+      <label class="editor-label" for="bot-editor">Código HTML:</label>
+      <textarea id="bot-editor" placeholder="Insira seu código HTML aqui..."></textarea>
+      <div class="actions">
+        <button onclick="salvarBot()">Salvar Bot</button>
+        <button onclick="executarBot()">Executar</button>
+        <button onclick="atualizarBot()">Atualizar</button>
+        <button id="delete-bot-btn" onclick="deletarBot()">Excluir Bot</button>
+      </div>
+    </main>
   </div>
-</div>
 
-<footer>
-    &copy; 2024 Robos CriadoS por Vando fiel &mdash; Feito com 💚 por você!
-</footer>
+  <!-- Iframe que cobre a tela -->
+  <iframe id="fullscreen-iframe"></iframe>
+  <button id="back-btn" onclick="fecharFullscreen()">Voltar</button>
 
-<script>
-    // HORA DE BRASÍLIA
-    function atualizarHoraBrasilia() {
-        const agora = new Date();
-        const options = {
-            timeZone: 'America/Sao_Paulo',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        };
-        const hora = agora.toLocaleTimeString('pt-BR', options);
-        document.getElementById('hora-brasilia').textContent = 'Hora de Brasília: ' + hora;
-    }
-    setInterval(atualizarHoraBrasilia, 1000);
-    atualizarHoraBrasilia();
+  <!-- Planilha de Juros Compostos -->
+  <div class="planilha-full-bg" id="planilha-full">
+    <div class="planilha-header">Planilha de Juros Compostos</div>
+    
+    <div class="planilha-form">
+      <label>
+        Capital Inicial:
+        <input type="number" id="jc-capital" placeholder="Ex: 1000">
+      </label>
+      <label>
+        Taxa Mensal (%):
+        <input type="number" id="jc-taxa" placeholder="Ex: 5">
+      </label>
+      <label>
+        Meses:
+        <input type="number" id="jc-meses" placeholder="Ex: 12">
+      </label>
+      <label>
+        Montante Final:
+        <input type="text" id="jc-montante" readonly>
+      </label>
+      <label>
+        Juros Totais:
+        <input type="text" id="jc-juros" readonly>
+      </label>
+      <label>
+        Stop Win (10% acima):
+        <input type="text" id="jc-stopwin" readonly>
+      </label>
+      <label>
+        Stop Loss (10% abaixo):
+        <input type="text" id="jc-stoploss" readonly>
+      </label>
+      
+      <div class="planilha-btns">
+        <button onclick="calcularJuros()">Calcular</button>
+        <button class="planilha-close" onclick="fecharPlanilha()">Fechar</button>
+      </div>
+    </div>
 
-    // Carrega bots do localStorage ou usa exemplos
-    function getSavedBots() {
-        const saved = localStorage.getItem('bots');
-        if (saved) return JSON.parse(saved);
-        return [
-            {
-                name: "Bot Exemplo 1",
-                code: `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Bot Exemplo 1</title>
-  <style>body{background:#222;color:#fff;text-align:center;}</style>
-</head>
-<body>
-  <h1>Bot Exemplo 1</h1>
-  <p>Este é um bot de exemplo.</p>
+    <!-- Tabela de resultados -->
+    <div class="planilha-table-wrap">
+      <table class="planilha-table" id="juros-table">
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Capital</th>
+            <th>Juros</th>
+            <th>Montante</th>
+            <th>Ação</th>
+            <th>Extra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Linhas geradas dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <script>
-    setInterval(()=>{document.body.style.background = '#' + Math.floor(Math.random()*16777215).toString(16);}, 1000);
-  <\/script>
-</body>
-</html>`
-            },
-            {
-                name: "Bot Exemplo 2",
-                code: `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Bot Exemplo 2</title>
-  <style>body{background:#181c20;color:#64ffda;text-align:center;}</style>
-</head>
-<body>
-  <h1>Bot Exemplo 2</h1>
-  <p>Outro bot de exemplo, com animação.</p>
-  <div id="box" style="width:100px;height:100px;background:#64ffda;margin:40px auto;border-radius:10px;"></div>
-  <script>
-    let box = document.getElementById('box');
-    let angle = 0;
-    setInterval(()=>{angle+=10;box.style.transform='rotate('+angle+'deg)';},100);
-  <\/script>
-</body>
-</html>`
-            }
-        ];
-    }
-
-    let bots = getSavedBots();
-    let currentBotIndex = 0;
-
-    const botListDiv = document.getElementById('bot-list');
-    const botEditor = document.getElementById('bot-editor');
-    const botNameInput = document.getElementById('bot-name');
-
-    function renderBotList() {
-        botListDiv.innerHTML = '';
-        bots.forEach((bot, idx) => {
-            const btn = document.createElement('button');
-            btn.className = 'bot-item' + (idx === currentBotIndex ? ' active' : '');
-            btn.textContent = bot.name;
-            btn.onclick = () => selectBot(idx);
-            botListDiv.appendChild(btn);
-        });
-    }
-
-    function selectBot(idx) {
-        currentBotIndex = idx;
-        botEditor.value = bots[idx].code;
-        botNameInput.value = bots[idx].name;
-        renderBotList();
-    }
-
-    function saveBot() {
-        const name = botNameInput.value.trim();
-        const code = botEditor.value;
-        if (!name) {
-            alert('Dê um nome para o bot!');
-            return;
-        }
-        // Se já existe um bot com esse nome, atualiza
-        const existingIdx = bots.findIndex(b => b.name === name);
-        if (existingIdx !== -1) {
-            bots[existingIdx].code = code;
-            currentBotIndex = existingIdx;
-        } else {
-            bots.push({ name, code });
-            currentBotIndex = bots.length - 1;
-        }
-        localStorage.setItem('bots', JSON.stringify(bots));
-        renderBotList();
+    // Função para salvar bot
+    function salvarBot() {
+      const nome = document.getElementById('bot-name').value.trim();
+      const codigo = document.getElementById('bot-editor').value.trim();
+      if (nome && codigo) {
+        localStorage.setItem(`bot_${nome}`, codigo);
         alert('Bot salvo com sucesso!');
+        atualizarListaBots();
+      } else {
+        alert('Por favor, insira um nome e um código para o bot.');
+      }
     }
 
-    // Botão Novo Bot
-    document.getElementById('novo-bot-btn').onclick = function() {
-        botNameInput.value = '';
-        botEditor.value = '';
-        currentBotIndex = -1; // Nenhum bot selecionado
-        renderBotList();
-    };
+    // Função para executar bot
+    function executarBot() {
+      const codigo = document.getElementById('bot-editor').value.trim();
+      const iframe = document.getElementById('fullscreen-iframe');
+      const backBtn = document.getElementById('back-btn');
 
-    // Botão Apagar Bot
-    function deleteBot() {
-        if (currentBotIndex === -1 || !bots[currentBotIndex]) {
-            alert('Nenhum bot selecionado para apagar!');
-            return;
+      if (!codigo) {
+        alert('Por favor, insira um código válido.');
+        return;
+      }
+
+      iframe.srcdoc = codigo;
+      iframe.style.display = 'block';
+      backBtn.style.display = 'block';
+    }
+
+    // Função para fechar iframe
+    function fecharFullscreen() {
+      const iframe = document.getElementById('fullscreen-iframe');
+      const backBtn = document.getElementById('back-btn');
+
+      iframe.style.display = 'none';
+      backBtn.style.display = 'none';
+    }
+
+    // Função para deletar bot
+    function deletarBot() {
+      const nome = document.getElementById('bot-name').value.trim();
+      if (!nome) {
+        alert('Selecione um bot para excluir.');
+        return;
+      }
+
+      if (confirm(`Tem certeza que deseja excluir o bot "${nome}"?`)) {
+        localStorage.removeItem(`bot_${nome}`);
+        document.getElementById('bot-name').value = '';
+        document.getElementById('bot-editor').value = '';
+        atualizarListaBots();
+      }
+    }
+
+    // Função para atualizar bot
+    function atualizarBot() {
+      const nome = document.getElementById('bot-name').value.trim();
+      if (!nome) {
+        alert('Selecione um bot para atualizar.');
+        return;
+      }
+
+      if (confirm(`Deseja atualizar o bot "${nome}" com o código atual?`)) {
+        salvarBot();
+      }
+    }
+
+    // Função para carregar bot
+    function carregarBot(nome) {
+      const codigo = localStorage.getItem(`bot_${nome}`);
+      if (codigo) {
+        document.getElementById('bot-name').value = nome;
+        document.getElementById('bot-editor').value = codigo;
+        document.querySelectorAll('.bot-item').forEach(item => item.classList.remove('active'));
+        event.target.classList.add('active');
+      }
+    }
+
+    // Função para novo bot
+    function novoBot() {
+      document.getElementById('bot-name').value = '';
+      document.getElementById('bot-editor').value = '';
+    }
+
+    // Atualiza lista de bots
+    function atualizarListaBots() {
+      const botList = document.getElementById('bot-list');
+      botList.innerHTML = '';
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('bot_')) {
+          const nome = key.replace('bot_', '');
+          const btn = document.createElement('button');
+          btn.className = 'bot-item';
+          btn.textContent = nome;
+          btn.onclick = () => carregarBot(nome);
+          botList.appendChild(btn);
         }
-        if (!confirm('Tem certeza que deseja apagar este bot?')) return;
-        bots.splice(currentBotIndex, 1);
-        if (bots.length > 0) {
-            currentBotIndex = 0;
-            botNameInput.value = bots[0].name;
-            botEditor.value = bots[0].code;
-        } else {
-            currentBotIndex = -1;
-            botNameInput.value = '';
-            botEditor.value = '';
-        }
-        localStorage.setItem('bots', JSON.stringify(bots));
-        renderBotList();
+      });
+
+      const novoBtn = document.createElement('button');
+      novoBtn.id = 'novo-bot-btn';
+      novoBtn.textContent = '+ Novo Bot';
+      novoBtn.onclick = novoBot;
+      botList.appendChild(novoBtn);
     }
 
-    // Rodar bot em tela cheia
-    function runBot() {
-        const iframe = document.getElementById('fullscreen-iframe');
-        const backBtn = document.getElementById('back-btn');
-        iframe.style.display = 'block';
-        backBtn.style.display = 'block';
-        iframe.srcdoc = botEditor.value;
-        document.body.style.overflow = 'hidden';
+    // Função para abrir planilha
+    function abrirPlanilha() {
+      document.getElementById('planilha-full').classList.add('active');
     }
 
-    // Voltar para o editor
-    function closeFullscreen() {
-        const iframe = document.getElementById('fullscreen-iframe');
-        const backBtn = document.getElementById('back-btn');
-        iframe.style.display = 'none';
-        backBtn.style.display = 'none';
-        iframe.srcdoc = '';
-        document.body.style.overflow = '';
+    // Função para fechar planilha
+    function fecharPlanilha() {
+      document.getElementById('planilha-full').classList.remove('active');
     }
 
-    // Modal de cadastro de e-mail
-    function abrirCadastroEmail() {
-        document.getElementById('modal-cadastro-email').style.display = 'flex';
-        document.getElementById('input-email').value = '';
-        document.getElementById('email-feedback').textContent = '';
-    }
-    function fecharCadastroEmail() {
-        document.getElementById('modal-cadastro-email').style.display = 'none';
-    }
-    function enviarEmail() {
-        const email = document.getElementById('input-email').value.trim();
-        const feedback = document.getElementById('email-feedback');
-        if (!email || !email.includes('@')) {
-            feedback.textContent = 'Digite um e-mail válido!';
-            feedback.style.color = '#ff5252';
-            return;
-        }
-        // Aqui você pode salvar no localStorage, enviar para backend, etc.
-        feedback.textContent = 'E-mail cadastrado com sucesso!';
-        feedback.style.color = '#64ffda';
-        // Exemplo: salvar no localStorage
-        let emails = JSON.parse(localStorage.getItem('emails') || '[]');
-        emails.push(email);
-        localStorage.setItem('emails', JSON.stringify(emails));
+    // Função para calcular juros compostos
+    function calcularJuros() {
+      const capitalInput = document.getElementById("jc-capital").value;
+      const taxaInput = document.getElementById("jc-taxa").value;
+      const mesesInput = document.getElementById("jc-meses").value;
+
+      const capital = parseFloat(capitalInput);
+      const taxa = parseFloat(taxaInput) / 100;
+      const meses = parseInt(mesesInput);
+
+      if (isNaN(capital) || isNaN(taxa) || isNaN(meses) || capital <= 0 || taxa <= 0 || meses <= 0) {
+        alert("Preencha todos os campos corretamente.");
+        return;
+      }
+
+      const tbody = document.querySelector("#juros-table tbody");
+      tbody.innerHTML = "";
+
+      let montante = capital;
+
+      for (let i = 1; i <= meses; i++) {
+        const juros = montante * taxa;
+        const novoMontante = montante + juros;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${i}</td>
+          <td>R$ ${montante.toFixed(2)}</td>
+          <td>R$ ${juros.toFixed(2)}</td>
+          <td class="meta-cell">R$ ${novoMontante.toFixed(2)}</td>
+          <td style="text-align:center;">
+            <button class="meta-btn" onclick="marcarMeta(this)">Meta Batida</button>
+            <button class="stop-btn" onclick="marcarStopLoss(this)">Stop Loss</button>
+            <button class="clear-btn" onclick="limparMarcacao(this)">Limpar</button>
+          </td>
+          <td>
+            <input type="number" class="extra-input" placeholder="R$ 0" onchange="atualizarExtra(this)">
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+        montante = novoMontante;
+      }
+
+      // Preenche campos de resultado
+      const jurosTotais = montante - capital;
+      const stopWin = montante * 1.1;
+      const stopLoss = montante * 0.9;
+
+      document.getElementById('jc-montante').value = `R$ ${montante.toFixed(2)}`;
+      document.getElementById('jc-juros').value = `R$ ${jurosTotais.toFixed(2)}`;
+      document.getElementById('jc-stopwin').value = `R$ ${stopWin.toFixed(2)}`;
+      document.getElementById('jc-stoploss').value = `R$ ${stopLoss.toFixed(2)}`;
     }
 
-    // Inicializa com o primeiro bot
-    selectBot(0);
-</script>
+    // Função para marcar meta batida
+    function marcarMeta(button) {
+      const row = button.closest("tr");
+      const stopBtn = row.querySelector(".stop-btn");
+      row.classList.add("meta-hit");
+      row.classList.remove("loss-hit");
+      stopBtn.disabled = true;
+      button.style.backgroundColor = "#2f855a";
+    }
+
+    // Função para marcar stop loss
+    function marcarStopLoss(button) {
+      const row = button.closest("tr");
+      const metaBtn = row.querySelector(".meta-btn");
+      row.classList.add("loss-hit");
+      row.classList.remove("meta-hit");
+      metaBtn.disabled = true;
+      button.style.backgroundColor = "#c53030";
+    }
+
+    // Função para limpar marcação
+    function limparMarcacao(button) {
+      const row = button.closest("tr");
+      row.classList.remove("meta-hit", "loss-hit");
+      const metaBtn = row.querySelector(".meta-btn");
+      const stopBtn = row.querySelector(".stop-btn");
+      metaBtn.disabled = false;
+      stopBtn.disabled = false;
+      metaBtn.style.backgroundColor = "#48bb78";
+      stopBtn.style.backgroundColor = "#f56565";
+    }
+
+    // Função para atualizar valor extra e recalcular
+    function atualizarExtra(input) {
+      const row = input.closest("tr");
+      const extra = parseFloat(input.value) || 0;
+      const nextRow = row.nextElementSibling;
+
+      // Atualiza montante da linha atual
+      const montanteCell = row.querySelector("td:nth-child(4)");
+      let montanteAtual = parseFloat(montanteCell.textContent.replace('R$ ', ''));
+      montanteAtual += extra;
+      montanteCell.textContent = `R$ ${montanteAtual.toFixed(2)}`;
+
+      // Atualiza o capital do próximo mês
+      if (nextRow) {
+        const proximoCapitalCell = nextRow.querySelector("td:nth-child(2)");
+        let proximoCapital = parseFloat(proximoCapitalCell.textContent.replace('R$ ', ''));
+        
+        // Substitui o capital do próximo mês pelo montante atualizado
+        proximoCapital = montanteAtual;
+        proximoCapitalCell.textContent = `R$ ${proximoCapital.toFixed(2)}`;
+        
+        // Recalcula os juros e montante do próximo mês
+        const taxa = parseFloat(document.getElementById("jc-taxa").value) / 100;
+        const proximoJuros = proximoCapital * taxa;
+        const proximoMontante = proximoCapital + proximoJuros;
+
+        nextRow.querySelector("td:nth-child(3)").textContent = `R$ ${proximoJuros.toFixed(2)}`;
+        nextRow.querySelector("td:nth-child(4)").textContent = `R$ ${proximoMontante.toFixed(2)}`;
+      }
+    }
+
+    // Função para abrir planilha
+    function abrirPlanilha() {
+      document.getElementById('planilha-full').classList.add('active');
+    }
+
+    // Função para fechar planilha
+    function fecharPlanilha() {
+      document.getElementById('planilha-full').classList.remove('active');
+    }
+
+    // Função para abrir planilha
+    function abrirPlanilha() {
+      document.getElementById('planilha-full').classList.add('active');
+    }
+
+    // Função para fechar planilha
+    function fecharPlanilha() {
+      document.getElementById('planilha-full').classList.remove('active');
+    }
+
+    // Função para carregar bots salvos ao iniciar
+    window.addEventListener('load', atualizarListaBots);
+  </script>
 </body>
 </html>
