@@ -91,15 +91,22 @@
       font-weight: 500;
       transition: color 0.2s ease-in-out;
       padding: 8px 4px;
-      display: flex; 
+      display: flex;
       align-items: center;
-      gap: 6px; 
+      gap: 6px;
     }
 
     .navbar-menu li a:hover,
     .navbar-menu li a.active-link {
       color: #64ffda;
     }
+    .navbar-menu li a.active-planilha-link {
+        color: #82e9de;
+    }
+    .navbar-menu li a.active-planilha-link i {
+        color: #82e9de;
+    }
+
 
     .container {
       display: flex;
@@ -134,7 +141,7 @@
       flex: 1;
       overflow-y: auto;
     }
-    .bot-list p { 
+    .bot-list p {
       text-align: center;
       color: #78909c;
       padding: 20px 15px;
@@ -162,7 +169,7 @@
         margin-right: 10px;
         color: #78909c;
         transition: color 0.2s ease-in-out;
-        width: 18px; 
+        width: 18px;
         text-align: center;
     }
 
@@ -176,7 +183,7 @@
     #bot-list > .bot-item {
         margin-left: 15px;
         margin-right: 15px;
-        width: calc(100% - 30px); 
+        width: calc(100% - 30px);
     }
 
 
@@ -213,7 +220,6 @@
         border-color: #64ffda;
         box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.3);
     }
-     /* Estilos para campos readonly */
     #bot-name[readonly] {
       background-color: #2a2e32 !important;
       color: #a0a0a0 !important;
@@ -272,7 +278,7 @@
       gap: 8px;
     }
     .actions button i {
-        font-size: 0.9em; 
+        font-size: 0.9em;
     }
     .actions button:disabled {
         opacity: 0.6;
@@ -281,7 +287,7 @@
         box-shadow: none;
     }
     .actions button:disabled:hover {
-        background-color: #64ffda; /* Mantém a cor original no hover quando desabilitado */
+        background-color: #64ffda;
     }
 
 
@@ -307,7 +313,7 @@
         box-shadow: 0 2px 5px rgba(255, 82, 82, 0.15);
     }
     #delete-bot-btn:disabled:hover {
-        background-color: #ff5252; /* Mantém cor original no hover quando desabilitado */
+        background-color: #ff5252;
     }
 
 
@@ -330,7 +336,6 @@
       top: 20px;
       left: 20px;
       z-index: 10000;
-      display: none;
       padding: 10px 20px;
       border: none;
       border-radius: 6px;
@@ -353,13 +358,11 @@
     }
 
     #novo-bot-btn-wrapper {
-        padding: 0 15px; 
-        /* margin-top: 10px; /* Removido, pois o botão novo é sempre o primeiro */
+        padding: 0 15px;
     }
 
     #novo-bot-btn {
       width: 100%;
-      /* margin-bottom: 15px; /* Removido, pois é o primeiro e o espaçamento será para os itens abaixo */
       background: transparent;
       color: #64ffda;
       border: 1px solid #64ffda;
@@ -373,12 +376,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 10px; /* Adicionado para espaçar do primeiro bot da lista */
+      margin-bottom: 10px;
     }
-    #novo-bot-btn-wrapper + .bot-item { /* Adiciona margem ao primeiro bot se existir */
-        margin-top: 0; 
-    }
-
 
     #novo-bot-btn:hover {
       background: #64ffda;
@@ -392,9 +391,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(18, 21, 25, 0.95); 
+      background: rgba(18, 21, 25, 0.97);
       z-index: 99999;
-      display: none; 
+      display: none;
       flex-direction: column;
       align-items: center;
       padding: 20px 0;
@@ -421,66 +420,88 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      position: relative;
     }
+    #save-feedback {
+      font-size: 0.7em;
+      margin-left: 15px;
+      color: #64ffda;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
 
     .planilha-form {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px 28px;
+      gap: 15px 20px;
       background: #23272b;
       border-radius: 10px;
-      padding: 28px;
+      padding: 20px;
       margin: 0 20px 20px 20px;
       box-shadow: 0 6px 25px rgba(0,0,0,0.25);
-      max-width: 1000px;
+      max-width: 1200px;
       width: calc(100% - 40px);
       justify-content: center;
       flex-shrink: 0;
     }
 
-    .planilha-form label {
+    .planilha-form label, .planilha-form .currency-selector-label {
       display: flex;
       flex-direction: column;
       color: #b0bec5;
-      font-size: 0.9em;
+      font-size: 0.88em;
       font-weight: 500;
-      min-width: 200px;
-      flex: 1 1 200px;
+      min-width: 165px;
+      flex: 1 1 165px;
       margin-bottom: 0;
     }
-    .planilha-form label span {
+    .planilha-form label span, .planilha-form .currency-selector-label span {
         margin-bottom: 6px;
         color: #64ffda;
         display: flex;
         align-items: center;
         gap: 6px;
     }
-    .planilha-form label span i {
+    .planilha-form label span i, .planilha-form .currency-selector-label span i {
         font-size: 0.9em;
     }
 
     .planilha-form input[type="number"],
-    .planilha-form input[type="text"] {
+    .planilha-form input[type="text"],
+    .planilha-form select {
       margin-top: 0;
-      padding: 10px 12px;
+      padding: 9px 11px;
       border-radius: 6px;
       border: 1px solid #373b3e;
       background: #181c20;
       color: #e0e6eb;
-      font-size: 1em;
+      font-size: 0.95em;
       font-family: 'Inter', sans-serif;
       transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
-    .planilha-form input:focus {
+    .planilha-form input:focus, .planilha-form select:focus {
         outline: none;
         border-color: #64ffda;
         box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.3);
     }
+    .planilha-form select {
+        cursor: pointer;
+    }
+
 
     .planilha-form input[readonly] {
       background: #2a2e32 !important;
       cursor: default !important;
       opacity: 0.8;
+    }
+    #jc-dias-meta {
+        color: #ffeb3b !important;
+        font-weight: bold;
     }
 
     .planilha-form input#jc-stopwin {
@@ -502,7 +523,7 @@
       margin-top: 15px;
       flex-shrink: 0;
     }
-    .planilha-btns button {
+     .planilha-btns button {
         padding: 10px 20px;
         border: none;
         border-radius: 6px;
@@ -515,11 +536,12 @@
         align-items: center;
         gap: 8px;
     }
-    .planilha-btns button:first-of-type {
+    .planilha-btns button.calculate-btn {
         background: #64ffda;
         color: #181c20;
+        margin-right: auto;
     }
-    .planilha-btns button:first-of-type:hover {
+    .planilha-btns button.calculate-btn:hover {
         background: #43c6ac;
         transform: translateY(-2px);
         box-shadow: 0 4px 10px rgba(100, 255, 218, 0.2);
@@ -555,7 +577,7 @@
       border-collapse: collapse;
       font-size: 0.9em;
       margin: 0;
-      min-width: 1000px;
+      min-width: 950px; /* Ajustado para 6 colunas */
     }
 
     .planilha-table th,
@@ -567,14 +589,21 @@
     }
 
     .planilha-table th:first-child,
-    .planilha-table td:first-child {
+    .planilha-table td:first-child { /* Dia */
       text-align: center;
       padding-left: 20px;
     }
+     .planilha-table td:nth-child(4) { /* Informar Banca Final (input) */
+        text-align: center;
+     }
+     .planilha-table td:nth-child(6) { /* Ação (botões) */
+        text-align: center;
+     }
     .planilha-table th:last-child,
-    .planilha-table td:last-child {
+    .planilha-table td:last-child { /* Ação (botões) */
       padding-right: 20px;
     }
+
 
     .planilha-table th {
       background: #23272b;
@@ -600,14 +629,12 @@
         background-color: #2c313a;
     }
 
-    .planilha-table tr.stop-win td, 
-    .planilha-table tr.meta-hit td { 
+    .planilha-table tr.meta-hit td {
       background: #1b5e20 !important;
       color: white !important;
     }
 
-    .planilha-table tr.stop-loss td, 
-    .planilha-table tr.loss-hit td { 
+    .planilha-table tr.loss-hit td {
       background: #b71c1c !important;
       color: white !important;
     }
@@ -620,10 +647,10 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin: 2px;
+      margin: 0 3px;
       transition: background 0.2s ease-in-out, transform 0.1s ease-in-out, opacity 0.2s ease-in-out;
       font-weight: 500;
-      display: inline-flex; 
+      display: inline-flex;
       align-items: center;
       gap: 4px;
     }
@@ -636,7 +663,7 @@
       color: white;
     }
     .meta-btn:not(:disabled):hover {
-      background: #2f855a;
+      background: #38a169;
       transform: scale(1.05);
     }
 
@@ -645,7 +672,7 @@
       color: white;
     }
     .stop-btn:not(:disabled):hover {
-      background: #c53030;
+      background: #e53e3e;
       transform: scale(1.05);
     }
 
@@ -660,22 +687,22 @@
     .meta-btn:disabled, .stop-btn:disabled {
         opacity: 0.6;
         cursor: not-allowed;
-        transform: none; 
+        transform: none;
     }
     .meta-btn:disabled:hover {
-        background-color: #48bb78; 
+        background-color: #48bb78;
     }
     .stop-btn:disabled:hover {
-        background-color: #f56565; 
+        background-color: #f56565;
     }
 
-    .meta-btn.active-action { background: #2f855a !important; } /* Add !important if needed to override */
+    .meta-btn.active-action { background: #2f855a !important; }
     .stop-btn.active-action { background: #c53030 !important; }
 
 
-    .extra-input {
+    .banca-final-dia-input {
       width: 100%;
-      max-width: 100px; 
+      max-width: 120px;
       padding: 8px;
       border-radius: 5px;
       border: 1px solid #373b3e;
@@ -683,29 +710,18 @@
       color: #e0e6eb;
       font-size: 0.9em;
       box-sizing: border-box;
-      margin-top: 4px;
       font-family: 'Inter', sans-serif;
       text-align: right;
       transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
-    .extra-input:focus {
+    .banca-final-dia-input:focus {
         outline: none;
         border-color: #64ffda;
         background-color: #181c20;
     }
 
-    .meta-cell {
-      font-weight: bold;
-      color: #64ffda;
-    }
-
-    .excesso-cell {
-      font-weight: bold;
-      color: #f56565;
-    }
-
-    input:focus, textarea:focus, button:focus {
-      outline: 2px solid rgba(100, 255, 218, 0.5); 
+    input:focus, textarea:focus, button:focus, select:focus {
+      outline: 2px solid rgba(100, 255, 218, 0.5);
       outline-offset: 1px;
     }
     *:focus:not(:focus-visible) {
@@ -718,10 +734,10 @@
   <nav class="navbar">
     <div class="navbar-logo"><i class="fas fa-brain"></i>Bots Deriv</div>
     <ul class="navbar-menu">
-      <li><a href="#" class="active-link"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="#"><i class="fas fa-book"></i> Docs</a></li>
-      <li><a href="#"><i class="fas fa-info-circle"></i> Sobre</a></li>
-      <li><a href="#" onclick="abrirPlanilha()"><i class="fas fa-calculator"></i> Planilha</a></li>
+      <li><a href="#" class="active-link" title="Página Inicial"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#" title="Documentação"><i class="fas fa-book"></i> Docs</a></li>
+      <li><a href="#" title="Sobre o Projeto"><i class="fas fa-info-circle"></i> Sobre</a></li>
+      <li><a href="#" onclick="abrirPlanilha()" title="Abrir Planilha de Juros Compostos Diários"><i class="fas fa-calculator"></i> Planilha Diária</a></li>
     </ul>
   </nav>
 
@@ -731,7 +747,7 @@
     <aside class="sidebar">
       <h2><i class="fas fa-list-ul"></i> Bots Salvos</h2>
       <div class="bot-list" id="bot-list">
-        <!-- Botões e mensagem de "nenhum bot" são gerados pelo JS -->
+        <!-- Gerado pelo JS -->
       </div>
     </aside>
 
@@ -741,9 +757,9 @@
       <label class="editor-label" for="bot-editor">Código HTML:</label>
       <textarea id="bot-editor" placeholder="Insira seu código HTML aqui..."></textarea>
       <div class="actions">
-        <button onclick="salvarBot()"><i class="fas fa-save"></i> Salvar Bot</button> <!-- Este é o saveUpdateButton -->
+        <button onclick="salvarBot()"><i class="fas fa-save"></i> Salvar Bot</button>
         <button onclick="executarBot()"><i class="fas fa-play"></i> Executar</button>
-        <button onclick="atualizarBot()"><i class="fas fa-sync-alt"></i> Atualizar</button> <!-- Este é o updateButton -->
+        <button onclick="atualizarBot()"><i class="fas fa-sync-alt"></i> Atualizar</button>
         <button id="delete-bot-btn" onclick="deletarBot()"><i class="fas fa-trash-alt"></i> Excluir Bot</button>
       </div>
     </main>
@@ -751,44 +767,58 @@
 
   <!-- Iframe que cobre a tela -->
   <iframe id="fullscreen-iframe"></iframe>
-  <button id="back-btn" onclick="fecharFullscreen()"><i class="fas fa-arrow-left"></i> Voltar</button>
+  <button id="back-btn" onclick="fecharFullscreen()" style="display: none;"><i class="fas fa-arrow-left"></i> Voltar</button>
 
-  <!-- Planilha de Juros Compostos -->
+  <!-- Planilha de Juros Compostos Diários -->
   <div class="planilha-full-bg" id="planilha-full">
-    <div class="planilha-header"><i class="fas fa-chart-line"></i> Planilha de Juros Compostos</div>
+    <div class="planilha-header">
+        <i class="fas fa-chart-line"></i> Planilha de Juros Compostos Diários
+        <span id="save-feedback"></span>
+    </div>
 
     <div class="planilha-form">
-      <label>
+      <label title="Valor inicial do seu investimento">
         <span><i class="fas fa-dollar-sign"></i> Capital Inicial:</span>
         <input type="number" id="jc-capital" placeholder="Ex: 1000" step="any">
       </label>
-      <label>
-        <span><i class="fas fa-percentage"></i> Taxa Mensal (%):</span>
-        <input type="number" id="jc-taxa" placeholder="Ex: 5" step="any">
+      <label title="Percentual de rendimento esperado por dia">
+        <span><i class="fas fa-percentage"></i> Taxa Diária (%):</span>
+        <input type="number" id="jc-taxa" placeholder="Ex: 1" step="any">
       </label>
-      <label>
-        <span><i class="far fa-calendar-alt"></i> Meses:</span>
-        <input type="number" id="jc-meses" placeholder="Ex: 12" step="1">
+      <label title="Número de dias para o cálculo">
+        <span><i class="far fa-calendar-alt"></i> Dias (Período):</span>
+        <input type="number" id="jc-dias-periodo" placeholder="Ex: 30" step="1" min="0">
       </label>
-      <label>
-        <span><i class="fas fa-coins"></i> Montante Final:</span>
+      <div class="currency-selector-label" title="Escolha a moeda para a planilha">
+          <span><i class="fas fa-coins"></i> Moeda:</span>
+          <select id="jc-currency">
+              <option value="BRL">BRL (R$)</option>
+              <option value="USD">USD ($)</option>
+          </select>
+      </div>
+      <label title="Valor total acumulado ao final do período (projeção ideal)">
+        <span><i class="fas fa-coins"></i> Montante Final Proj.:</span>
         <input type="text" id="jc-montante" readonly>
       </label>
-      <label>
-        <span><i class="fas fa-hand-holding-usd"></i> Juros Totais:</span>
+      <label title="Total de juros ganhos durante o período (projeção ideal)">
+        <span><i class="fas fa-hand-holding-usd"></i> Juros Totais Proj.:</span>
         <input type="text" id="jc-juros" readonly>
       </label>
-      <label>
-        <span><i class="fas fa-arrow-trend-up"></i> Stop Win (10% do M. Final):</span>
+      <label title="Meta de ganho: Montante Final Projetado + 10%">
+        <span><i class="fas fa-arrow-trend-up"></i> Stop Win (M. Final Proj. + 10%):</span>
         <input type="text" id="jc-stopwin" readonly>
       </label>
-      <label>
-        <span><i class="fas fa-arrow-trend-down"></i> Stop Loss (10% do C. Inicial):</span>
+      <label title="Limite de perda: Capital Inicial - 10%">
+        <span><i class="fas fa-arrow-trend-down"></i> Stop Loss (C. Inicial - 10%):</span>
         <input type="text" id="jc-stoploss" readonly>
+      </label>
+      <label title="Dias restantes para atingir o Stop Win projetado do período">
+        <span><i class="fas fa-hourglass-half"></i> Dias para Meta Período:</span>
+        <input type="text" id="jc-dias-meta" readonly>
       </label>
 
       <div class="planilha-btns">
-        <button onclick="calcularJuros()"><i class="fas fa-calculator"></i> Calcular</button>
+        <button class="calculate-btn" onclick="calcularJurosCompostosDiarios()"><i class="fas fa-calculator"></i> Calcular / Recalcular</button>
         <button class="planilha-close" onclick="fecharPlanilha()"><i class="fas fa-times"></i> Fechar</button>
       </div>
     </div>
@@ -797,12 +827,12 @@
       <table class="planilha-table" id="juros-table">
         <thead>
           <tr>
-            <th><i class="far fa-calendar-check"></i> Mês</th>
-            <th><i class="fas fa-wallet"></i> Capital</th>
-            <th><i class="fas fa-chart-pie"></i> Juros do Mês</th>
-            <th><i class="fas fa-piggy-bank"></i> Montante Mês</th>
-            <th><i class="fas fa-tasks"></i> Ação do Dia</th>
-            <th><i class="fas fa-plus-circle"></i> Extra (R$)</th>
+            <th><i class="far fa-calendar-check"></i> Dia</th>
+            <th><i class="fas fa-wallet"></i> Capital Início Dia</th>
+            <th><i class="fas fa-bullseye"></i> Meta Lucro Dia</th>
+            <th id="th-informar-banca-final"><i class="fas fa-edit"></i> Informar Banca Final (<span id="th-banca-final-dia-currency-symbol">R$</span>)</th>
+            <th><i class="fas fa-piggy-bank"></i> Banca Final Dia (Real)</th>
+            <th><i class="fas fa-tasks"></i> Ação</th>
           </tr>
         </thead>
         <tbody>
@@ -813,86 +843,56 @@
   </div>
 
   <script>
+    // --- (Lógica dos Bots - INALTERADA) ---
     const botNameInput = document.getElementById('bot-name');
     const botEditor = document.getElementById('bot-editor');
     const fullscreenIframe = document.getElementById('fullscreen-iframe');
     const backBtn = document.getElementById('back-btn');
     const botList = document.getElementById('bot-list');
-    const planilhaFull = document.getElementById('planilha-full');
-    const jcCapitalInput = document.getElementById("jc-capital");
-    const jcTaxaInput = document.getElementById("jc-taxa");
-    const jcMesesInput = document.getElementById("jc-meses");
-    const jcMontanteOutput = document.getElementById('jc-montante');
-    const jcJurosOutput = document.getElementById('jc-juros');
-    const jcStopWinOutput = document.getElementById('jc-stopwin');
-    const jcStopLossOutput = document.getElementById('jc-stoploss');
-    const jurosTableBody = document.querySelector("#juros-table tbody");
-
-    const saveNewBotButton = document.querySelector('.actions button:nth-child(1)'); 
-    const editUpdateButton = document.querySelector('.actions button:nth-child(3)'); 
+    const saveNewBotButton = document.querySelector('.actions button:nth-child(1)');
+    const editUpdateButton = document.querySelector('.actions button:nth-child(3)');
 
     function bloquearEditor() {
         botNameInput.readOnly = true;
         botEditor.readOnly = true;
-        // Os estilos CSS [readonly] já cuidam da aparência
-        
         if(editUpdateButton) {
             editUpdateButton.innerHTML = '<i class="fas fa-edit"></i> Editar Bot';
             editUpdateButton.onclick = habilitarEdicaoBot;
         }
-        if(saveNewBotButton) {
-            saveNewBotButton.disabled = true;
-        }
+        if(saveNewBotButton) saveNewBotButton.disabled = true;
     }
-
     function habilitarEdicaoCampos() {
         botNameInput.readOnly = false;
         botEditor.readOnly = false;
-        // Os estilos CSS [readonly] são removidos automaticamente
-        
-        if(saveNewBotButton) {
-            saveNewBotButton.disabled = false;
-        }
+        if(saveNewBotButton) saveNewBotButton.disabled = false;
     }
-    
     function habilitarEdicaoBot() {
         habilitarEdicaoCampos();
-        botEditor.focus(); // Foca no editor após habilitar
-
+        botEditor.focus();
         if(editUpdateButton) {
             editUpdateButton.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
-            editUpdateButton.onclick = atualizarBot; 
+            editUpdateButton.onclick = atualizarBot;
         }
-        // Não precisa de alerta aqui, o usuário clicou para editar.
     }
-
-
     function salvarBot() {
-      // Esta função é para SALVAR UM NOVO BOT ou SOBRESCREVER um existente com o mesmo nome.
-      // O botão "Salvar Bot" só está habilitado se os campos estiverem editáveis ou se for um novo bot.
       const nome = botNameInput.value.trim();
       const codigo = botEditor.value.trim();
-
       if (!nome || !codigo) {
         alert('Por favor, insira um nome e um código para o bot.');
         return;
       }
-
       const botExistente = localStorage.getItem(`bot_${nome}`);
       if (botExistente) {
-          if (!confirm(`Um bot com o nome "${nome}" já existe. Deseja sobrescrevê-lo com este conteúdo? (Para editar o bot existente sem sobrescrever como novo, use o botão 'Editar'/'Atualizar').`)) {
-            alert("Operação de 'Salvar Bot' cancelada. Se desejava editar, carregue o bot e use 'Editar'.");
+          if (!confirm(`Um bot com o nome "${nome}" já existe. Deseja sobrescrevê-lo?`)) {
             return;
           }
       }
-      
       localStorage.setItem(`bot_${nome}`, codigo);
       alert(`Bot "${nome}" salvo com sucesso!`);
       atualizarListaBots();
       selecionarBotNaLista(nome);
-      bloquearEditor(); 
+      bloquearEditor();
     }
-
     function executarBot() {
       const codigo = botEditor.value.trim();
       if (!codigo) {
@@ -901,145 +901,106 @@
       }
       fullscreenIframe.srcdoc = codigo;
       fullscreenIframe.style.display = 'block';
-      backBtn.style.display = 'flex'; 
+      backBtn.style.display = 'flex';
     }
-
     function fecharFullscreen() {
       fullscreenIframe.style.display = 'none';
       backBtn.style.display = 'none';
-      fullscreenIframe.srcdoc = ''; 
+      fullscreenIframe.srcdoc = '';
     }
-
     function deletarBot() {
       const nome = botNameInput.value.trim();
-      if (!nome || botNameInput.readOnly === false) { // Só deleta se um bot estiver carregado (readonly)
+      if (!nome || botNameInput.readOnly === false) {
         alert('Carregue um bot para excluí-lo.');
         return;
       }
-      
       if (confirm(`Tem certeza que deseja excluir o bot "${nome}"?`)) {
         localStorage.removeItem(`bot_${nome}`);
-        botNameInput.value = '';
-        botEditor.value = '';
         alert(`Bot "${nome}" excluído.`);
-        novoBot(); // Prepara para um novo bot após a exclusão
+        novoBot();
       }
     }
-
     function atualizarBot() {
-      // Esta função é chamada quando o botão "Atualizar" (que antes era "Editar") é clicado.
-      // Os campos já foram habilitados por habilitarEdicaoBot().
-      
-      // Encontra o nome do bot que estava ativo ANTES da edição do nome.
-      // Isso é importante se o usuário renomear o bot.
       let nomeOriginalDoBotAtivo = null;
       const botAtivoNaLista = document.querySelector('.bot-item.active');
       if (botAtivoNaLista) {
           const textoCompleto = botAtivoNaLista.textContent.trim();
           nomeOriginalDoBotAtivo = textoCompleto.substring(textoCompleto.indexOf(' ') + 1).trim();
       }
-
       if (!nomeOriginalDoBotAtivo) {
-          alert("Nenhum bot estava selecionado para ser atualizado. Isso não deveria acontecer se o botão 'Atualizar' estiver ativo.");
-          novoBot(); // Reseta para estado de novo bot
+          alert("Nenhum bot selecionado para atualizar.");
+          novoBot();
           return;
       }
-
       const nomeNovoNoInput = botNameInput.value.trim();
       const codigoNovo = botEditor.value.trim();
-
       if (!nomeNovoNoInput || !codigoNovo) {
-          alert("Nome do bot e código não podem estar vazios para atualizar.");
+          alert("Nome do bot e código não podem estar vazios.");
           return;
       }
-      
-      // Se o nome foi alterado no input
       if (nomeOriginalDoBotAtivo !== nomeNovoNoInput) {
-          // Verifica se o novo nome já existe
           if (localStorage.getItem(`bot_${nomeNovoNoInput}`)) {
-              if (!confirm(`Você renomeou o bot para "${nomeNovoNoInput}", mas um bot com este nome já existe. Deseja sobrescrever o bot "${nomeNovoNoInput}" existente?`)) {
-                  alert("Atualização cancelada. O novo nome já está em uso.");
-                  botNameInput.value = nomeOriginalDoBotAtivo; // Reverte o nome no input
+              if (!confirm(`Você renomeou para "${nomeNovoNoInput}", que já existe. Sobrescrever?`)) {
+                  botNameInput.value = nomeOriginalDoBotAtivo;
                   return;
               }
           }
-          // Se chegou aqui, ou o novo nome é único ou o usuário confirmou a sobrescrita.
-          // Remove o bot com o nome original.
           localStorage.removeItem(`bot_${nomeOriginalDoBotAtivo}`);
       }
-      
-      // Salva/Atualiza com o nome (potencialmente novo) e código do input.
       localStorage.setItem(`bot_${nomeNovoNoInput}`, codigoNovo);
-      alert(`Bot "${nomeNovoNoInput}" atualizado com sucesso!`);
-      
+      alert(`Bot "${nomeNovoNoInput}" atualizado!`);
       atualizarListaBots();
-      selecionarBotNaLista(nomeNovoNoInput); // Seleciona o bot (possivelmente renomeado) na lista
-      bloquearEditor(); // Rebloqueia após a atualização
+      selecionarBotNaLista(nomeNovoNoInput);
+      bloquearEditor();
     }
-
-
     function carregarBot(nome) {
       const codigo = localStorage.getItem(`bot_${nome}`);
       if (codigo !== null) {
         botNameInput.value = nome;
         botEditor.value = codigo;
-        bloquearEditor(); 
+        bloquearEditor();
+        if(editUpdateButton) editUpdateButton.disabled = false;
       } else {
-        alert(`Bot "${nome}" não encontrado no localStorage.`);
-        novoBot(); // Se não encontrar, reseta para novo bot
+        alert(`Bot "${nome}" não encontrado.`);
+        novoBot();
       }
     }
-    
     function selecionarBotNaLista(nomeDoBot) {
         document.querySelectorAll('.bot-item').forEach(item => {
             item.classList.remove('active');
-            const textoBotao = item.textContent.trim();
-            const nomeNoBotao = textoBotao.substring(textoBotao.indexOf(' ') + 1).trim();
+            const nomeNoBotao = item.textContent.trim().substring(item.textContent.trim().indexOf(' ') + 1);
             if (nomeNoBotao === nomeDoBot) {
                  item.classList.add('active');
             }
         });
     }
-
     function novoBot() {
       botNameInput.value = '';
       botEditor.value = '';
-      habilitarEdicaoCampos(); 
+      habilitarEdicaoCampos();
       botNameInput.focus();
-      document.querySelectorAll('.bot-item.active').forEach(activeBtn => {
-          activeBtn.classList.remove('active');
-      });
+      document.querySelectorAll('.bot-item.active').forEach(activeBtn => activeBtn.classList.remove('active'));
       if(editUpdateButton) {
             editUpdateButton.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
-            editUpdateButton.onclick = atualizarBot; // Função padrão de atualizar
-            // O botão de atualizar deve ficar desabilitado se nenhum bot estiver carregado.
-            // Ou, sua lógica em atualizarBot() deve lidar com o caso de nomeOriginalDoBotAtivo ser null.
-            // Por segurança, vamos desabilitá-lo aqui e habilitar apenas ao carregar um bot.
-            editUpdateButton.disabled = true; 
+            editUpdateButton.onclick = atualizarBot;
+            editUpdateButton.disabled = true;
       }
-      if(saveNewBotButton) { // Botão salvar sempre habilitado para novo bot
-          saveNewBotButton.disabled = false;
-      }
-      atualizarListaBots(); // Atualiza a lista para refletir que nenhum bot está selecionado
+      if(saveNewBotButton) saveNewBotButton.disabled = false;
     }
-
     function atualizarListaBots() {
-      botList.innerHTML = ''; 
-
+      botList.innerHTML = '';
       const keys = Object.keys(localStorage);
       const botKeys = keys.filter(key => key.startsWith('bot_')).sort();
       let hasBots = false;
 
       const novoBtnWrapper = document.createElement('div');
       novoBtnWrapper.id = 'novo-bot-btn-wrapper';
-      
-      const novoBtnEl = document.createElement('button'); 
+      const novoBtnEl = document.createElement('button');
       novoBtnEl.id = 'novo-bot-btn';
       novoBtnEl.innerHTML = `<i class="fas fa-plus-circle"></i> Novo Bot`;
       novoBtnEl.onclick = novoBot;
       novoBtnWrapper.appendChild(novoBtnEl);
       botList.appendChild(novoBtnWrapper);
-
 
       if (botKeys.length > 0) {
         hasBots = true;
@@ -1049,221 +1010,408 @@
           btn.className = 'bot-item';
           btn.innerHTML = `<i class="fas fa-robot"></i> ${nome}`;
           btn.onclick = () => {
-            // Se já estiver ativo e clicou de novo, não faz nada ou talvez desabilite a edição?
-            // Por ora, apenas recarrega e rebloqueia.
-            if (btn.classList.contains('active') && botNameInput.readOnly) {
-                // Opcional: se clicar no ativo já bloqueado, talvez habilitar edição?
-                // habilitarEdicaoBot(); 
-                // return;
-            }
             document.querySelectorAll('.bot-item.active').forEach(activeBtn => activeBtn.classList.remove('active'));
             btn.classList.add('active');
             carregarBot(nome);
-            if(editUpdateButton) editUpdateButton.disabled = false; // Habilita o botão Editar/Atualizar
           };
-          if (nome === botNameInput.value && botNameInput.readOnly) { // Só marca ativo se estiver readonly (carregado)
+          if (nome === botNameInput.value && botNameInput.readOnly) {
               btn.classList.add('active');
-              if(editUpdateButton) editUpdateButton.disabled = false;
           }
           botList.appendChild(btn);
         });
-        // novoBtnWrapper.style.marginBottom = '10px'; // Já definido no CSS #novo-bot-btn
-
-      } else {
-        //  novoBtnWrapper.style.marginBottom = '0px'; 
-        if(editUpdateButton) editUpdateButton.disabled = true; // Desabilita se não há bots para editar/atualizar
       }
-
       if (!hasBots) {
         const p = document.createElement('p');
         p.innerHTML = `<i class="fas fa-ghost" style="margin-right: 5px;"></i> Nenhum bot salvo ainda.`;
         botList.appendChild(p);
-      }
-    }
-    
-    function abrirPlanilha() {
-      planilhaFull.classList.add('active');
-      jcCapitalInput.value = localStorage.getItem('jc_capital') || '';
-      jcTaxaInput.value = localStorage.getItem('jc_taxa') || '';
-      jcMesesInput.value = localStorage.getItem('jc_meses') || '';
-      if (jcCapitalInput.value && jcTaxaInput.value && jcMesesInput.value) {
-          calcularJuros(); 
+        if(editUpdateButton) editUpdateButton.disabled = true;
       } else {
-          jurosTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding: 20px;'>Preencha os campos e clique em Calcular.</td></tr>";
-          jcMontanteOutput.value = ''; jcJurosOutput.value = '';
-          jcStopWinOutput.value = ''; jcStopLossOutput.value = '';
+         const botAtivo = document.querySelector('.bot-item.active');
+         if(editUpdateButton) editUpdateButton.disabled = !botAtivo;
       }
     }
 
-    function fecharPlanilha() {
-      planilhaFull.classList.remove('active');
-      localStorage.setItem('jc_capital', jcCapitalInput.value);
-      localStorage.setItem('jc_taxa', jcTaxaInput.value);
-      localStorage.setItem('jc_meses', jcMesesInput.value);
-    }
+    // --- Lógica da Planilha de Juros Compostos Diários (Simplificada V2) ---
+    const planilhaFull = document.getElementById('planilha-full');
+    const jcCapitalInput = document.getElementById("jc-capital");
+    const jcTaxaInput = document.getElementById("jc-taxa");
+    const jcDiasPeriodoInput = document.getElementById("jc-dias-periodo");
+    const jcCurrencySelect = document.getElementById('jc-currency');
+    const jcMontanteOutput = document.getElementById('jc-montante');
+    const jcJurosOutput = document.getElementById('jc-juros');
+    const jcStopWinOutput = document.getElementById('jc-stopwin');
+    const jcStopLossOutput = document.getElementById('jc-stoploss');
+    const jcDiasMetaOutput = document.getElementById('jc-dias-meta');
+    const jurosTableBody = document.querySelector("#juros-table tbody");
+    const saveFeedbackEl = document.getElementById('save-feedback');
+    const thBancaFinalDiaCurrencySymbol = document.getElementById('th-banca-final-dia-currency-symbol');
 
-    function calcularJuros() {
-      const capital = parseFloat(jcCapitalInput.value.replace(',', '.')); 
-      const taxa = parseFloat(jcTaxaInput.value.replace(',', '.')) / 100; 
-      const meses = parseInt(jcMesesInput.value);
+    const PLANILHA_STORAGE_KEY_DIARIA_V6 = 'planilhaJurosCompostosDiariosData_v6'; // Mantendo a chave, pois a estrutura de salvar é a mesma
+    let saveFeedbackTimeoutDiaria;
+    let currentCurrencyDiaria = 'BRL';
 
-      if (isNaN(capital) || isNaN(taxa) || isNaN(meses) || capital <= 0 || taxa < 0 || meses <= 0) {
-        alert("Preencha todos os campos da planilha corretamente (Capital e Meses > 0, Taxa >= 0).");
-        jurosTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding: 20px;'>Dados inválidos.</td></tr>";
-        jcMontanteOutput.value = ''; jcJurosOutput.value = '';
-        jcStopWinOutput.value = ''; jcStopLossOutput.value = '';
-        return;
-      }
-
-      jurosTableBody.innerHTML = "";
-      // A função atualizarTabelaComExtras será responsável por popular e calcular tudo.
-      atualizarTabelaComExtras(); 
-    }
-
-    function marcarAcao(row, tipo) {
-        limparMarcacao(row, false); 
-        const metaBtn = row.querySelector(".meta-btn");
-        const stopBtn = row.querySelector(".stop-btn");
-
-        if (tipo === 'meta') {
-            row.classList.add("meta-hit");
-            if(metaBtn) { metaBtn.disabled = true; metaBtn.classList.add("active-action"); }
-            if(stopBtn) stopBtn.disabled = true; 
-        } else if (tipo === 'stop') {
-            row.classList.add("loss-hit");
-            if(stopBtn) { stopBtn.disabled = true; stopBtn.classList.add("active-action"); }
-            if(metaBtn) metaBtn.disabled = true; 
+    function formatCurrencyDiaria(value, currencyCode = currentCurrencyDiaria, includeSymbol = true) {
+        const options = { style: includeSymbol ? 'currency' : 'decimal', currency: currencyCode, minimumFractionDigits: 2, maximumFractionDigits: 2 };
+        const locale = currencyCode === 'BRL' ? 'pt-BR' : 'en-US';
+         try {
+            if (typeof value !== 'number' || isNaN(value)) {
+                value = 0;
+            }
+            let formatted = value.toLocaleString(locale, options);
+            return formatted;
+        } catch (e) {
+            const symbol = includeSymbol && currencyCode === 'BRL' ? 'R$' : (includeSymbol ? '$' : '');
+            let numStr = typeof value === 'number' ? value.toFixed(2) : '0.00';
+            if (currencyCode === 'BRL') numStr = numStr.replace('.', ',');
+            return `${symbol} ${numStr}`;
         }
     }
 
-    function limparMarcacao(row, recalcular = true) { // 'recalcular' não usado atualmente
+    function updateCurrencyDisplayDiaria() {
+        if(thBancaFinalDiaCurrencySymbol) {
+            thBancaFinalDiaCurrencySymbol.textContent = currentCurrencyDiaria === 'BRL' ? 'R$' : '$';
+        }
+        const bancaFinalInputs = jurosTableBody.querySelectorAll('.banca-final-dia-input');
+        bancaFinalInputs.forEach(input => {
+            const capitalDaLinhaParaPlaceholder = parseFloat(input.dataset.capitalInicioDia) || 0;
+            input.placeholder = formatCurrencyDiaria(capitalDaLinhaParaPlaceholder, currentCurrencyDiaria, false);
+        });
+    }
+
+    function exibirFeedbackSalvoDiaria() {
+        if (saveFeedbackEl) {
+            saveFeedbackEl.innerHTML = '<i class="fas fa-check-circle"></i> Salvo!';
+            saveFeedbackEl.style.opacity = '1';
+            clearTimeout(saveFeedbackTimeoutDiaria);
+            saveFeedbackTimeoutDiaria = setTimeout(() => { saveFeedbackEl.style.opacity = '0'; }, 1500);
+        }
+    }
+
+    function salvarPlanilhaDiaria() {
+        const data = {
+            capital: parseFloat(jcCapitalInput.value.replace(',', '.')) || 0,
+            taxaDiaria: parseFloat(jcTaxaInput.value.replace(',', '.')) || 0,
+            diasPeriodo: parseInt(jcDiasPeriodoInput.value) || 0,
+            currency: currentCurrencyDiaria,
+            linhas: []
+        };
+
+        const linhasTabela = jurosTableBody.querySelectorAll("tr");
+        linhasTabela.forEach(tr => {
+            const dia = parseInt(tr.dataset.dia);
+            const inputBancaFinalEl = tr.querySelector('.banca-final-dia-input');
+            const bancaFinalDia = parseFloat(inputBancaFinalEl.value.replace(',', '.')) || 0;
+            let acao = null;
+            if (tr.classList.contains('meta-hit')) acao = 'meta';
+            else if (tr.classList.contains('loss-hit')) acao = 'stop';
+            data.linhas.push({ dia, bancaFinalInformada: bancaFinalDia, acao });
+        });
+
+        localStorage.setItem(PLANILHA_STORAGE_KEY_DIARIA_V6, JSON.stringify(data));
+        exibirFeedbackSalvoDiaria();
+    }
+
+    function carregarPlanilhaSalvaDiaria() {
+        const dataString = localStorage.getItem(PLANILHA_STORAGE_KEY_DIARIA_V6);
+        if (!dataString) return null;
+        try {
+            return JSON.parse(dataString);
+        } catch (e) {
+            console.error("Erro ao carregar dados da planilha diária:", e);
+            localStorage.removeItem(PLANILHA_STORAGE_KEY_DIARIA_V6);
+            return null;
+        }
+    }
+
+    function abrirPlanilha() {
+        planilhaFull.classList.add('active');
+        document.querySelector('.navbar-menu a[onclick="abrirPlanilha()"]').classList.add('active-planilha-link');
+
+        const dadosSalvos = carregarPlanilhaSalvaDiaria();
+        if (dadosSalvos) {
+            jcCapitalInput.value = dadosSalvos.capital > 0 ? dadosSalvos.capital.toString().replace('.', ',') : '';
+            jcTaxaInput.value = dadosSalvos.taxaDiaria > 0 ? dadosSalvos.taxaDiaria.toString().replace('.', ',') : '';
+            jcDiasPeriodoInput.value = dadosSalvos.diasPeriodo >= 0 ? dadosSalvos.diasPeriodo.toString() : '';
+            currentCurrencyDiaria = dadosSalvos.currency || 'BRL';
+            jcCurrencySelect.value = currentCurrencyDiaria;
+            calcularJurosCompostosDiarios(dadosSalvos.linhas, false);
+        } else {
+            currentCurrencyDiaria = jcCurrencySelect.value || 'BRL';
+            updateCurrencyDisplayDiaria(); // Apenas para o símbolo no TH, se necessário
+            jurosTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding: 20px;'>Preencha os campos para iniciar.</td></tr>";
+            limparResumoPlanilhaDiaria();
+        }
+    }
+
+    function fecharPlanilha() {
+        planilhaFull.classList.remove('active');
+        document.querySelector('.navbar-menu a[onclick="abrirPlanilha()"]').classList.remove('active-planilha-link');
+    }
+
+    function limparResumoPlanilhaDiaria() {
+        jcMontanteOutput.value = formatCurrencyDiaria(0);
+        jcJurosOutput.value = formatCurrencyDiaria(0);
+        jcStopWinOutput.value = formatCurrencyDiaria(0);
+        jcStopLossOutput.value = formatCurrencyDiaria(0);
+        jcDiasMetaOutput.value = "N/A";
+    }
+
+    function handleLinhaPlanilhaChangeDiaria() {
+        salvarPlanilhaDiaria();
+        const dadosSalvos = carregarPlanilhaSalvaDiaria();
+        if (dadosSalvos) {
+            calcularJurosCompostosDiarios(dadosSalvos.linhas, true);
+        }
+    }
+
+    function calcularJurosCompostosDiarios(linhasSalvas = null, isInternalUpdate = false) {
+        const capitalInicialGlobal = parseFloat(jcCapitalInput.value.replace(',', '.')) || 0;
+        const taxaDiariaPerc = parseFloat(jcTaxaInput.value.replace(',', '.')) || 0;
+        const taxaDiariaGlobal = taxaDiariaPerc / 100;
+        const diasPeriodoTotal = parseInt(jcDiasPeriodoInput.value);
+
+        updateCurrencyDisplayDiaria();
+
+        if (isNaN(diasPeriodoTotal) || capitalInicialGlobal <= 0 || taxaDiariaGlobal < 0 || diasPeriodoTotal < 0) {
+             if (capitalInicialGlobal > 0 && diasPeriodoTotal === 0) {
+                jurosTableBody.innerHTML = `<tr><td colspan='6' style='text-align:center; padding: 20px;'>0 dias.</td></tr>`;
+                atualizarResumoGlobal(capitalInicialGlobal, taxaDiariaGlobal, diasPeriodoTotal, capitalInicialGlobal, 0);
+                if (!isInternalUpdate) salvarPlanilhaDiaria();
+                return;
+            }
+            if (!isInternalUpdate) alert("Preencha Capital (>0), Taxa Diária (>=0) e Dias (>=0) corretamente.");
+            jurosTableBody.innerHTML = `<tr><td colspan='6' style='text-align:center; padding: 20px;'>Dados inválidos.</td></tr>`;
+            limparResumoPlanilhaDiaria();
+            return;
+        }
+
+        if (!isInternalUpdate) { // Somente recalcula o resumo projetado se for um cálculo principal
+            atualizarResumoGlobal(capitalInicialGlobal, taxaDiariaGlobal, diasPeriodoTotal, capitalInicialGlobal, 0);
+        }
+
+        if (diasPeriodoTotal === 0 && capitalInicialGlobal > 0) {
+            jurosTableBody.innerHTML = `<tr><td colspan='6' style='text-align:center; padding: 20px;'>0 dias.</td></tr>`;
+            if (!isInternalUpdate) salvarPlanilhaDiaria();
+            return;
+        }
+
+        jurosTableBody.innerHTML = "";
+        let capitalAtualLinha = capitalInicialGlobal;
+        let diasProcessadosNaTabela = 0;
+
+        for (let i = 1; i <= diasPeriodoTotal; i++) {
+            diasProcessadosNaTabela = i;
+            const metaLucroDia = capitalAtualLinha * taxaDiariaGlobal;
+
+            const tr = document.createElement("tr");
+            tr.dataset.dia = i;
+
+            const dadosLinhaSalva = linhasSalvas ? linhasSalvas.find(l => l.dia === i) : null;
+            let bancaFinalInformadaPeloUsuario = 0;
+            if (dadosLinhaSalva && typeof dadosLinhaSalva.bancaFinalInformada === 'number') {
+                bancaFinalInformadaPeloUsuario = dadosLinhaSalva.bancaFinalInformada;
+            }
+            let acaoSalvaNaLinha = dadosLinhaSalva ? dadosLinhaSalva.acao : null;
+
+            let montanteFinalExibidoNaLinha; // Este será o valor da banca final do dia informado pelo usuário ou o capital inicial se não informado
+
+            if (bancaFinalInformadaPeloUsuario > 0) {
+                montanteFinalExibidoNaLinha = bancaFinalInformadaPeloUsuario;
+            } else {
+                // Se o usuário não informou a banca final (ou é 0 no save),
+                // o "Montante Final Dia (Real)" exibido será o capital inicial da linha (dia não operado/resultado neutro).
+                montanteFinalExibidoNaLinha = capitalAtualLinha;
+            }
+            // Casos de quebra
+             if (capitalAtualLinha <= 0 && i > 1) {
+                montanteFinalExibidoNaLinha = 0;
+            } else if (montanteFinalExibidoNaLinha < 0 && capitalAtualLinha > 0) {
+                 montanteFinalExibidoNaLinha = 0;
+            }
+
+            tr.innerHTML = `
+                <td>${i}</td>
+                <td>${formatCurrencyDiaria(capitalAtualLinha)}</td>
+                <td>${formatCurrencyDiaria(metaLucroDia)}</td>
+                <td>
+                    <input type="number" class="banca-final-dia-input"
+                           data-capital-inicio-dia="${capitalAtualLinha.toFixed(2)}"
+                           placeholder="${formatCurrencyDiaria(capitalAtualLinha, currentCurrencyDiaria, false)}"
+                           step="any"
+                           value="${bancaFinalInformadaPeloUsuario > 0 ? bancaFinalInformadaPeloUsuario.toFixed(2) : ''}"
+                           title="Informe o valor total da sua banca ao final deste dia.">
+                </td>
+                <td>${formatCurrencyDiaria(montanteFinalExibidoNaLinha)}</td>
+                <td style="text-align:center;">
+                    <button class="meta-btn" title="Marcar Meta Atingida"><i class="fas fa-check-circle"></i> Meta</button>
+                    <button class="stop-btn" title="Marcar Stop Loss Atingido"><i class="fas fa-times-circle"></i> Stop</button>
+                    <button class="clear-btn" title="Limpar Marcação"><i class="fas fa-eraser"></i> Limpar</button>
+                </td>
+            `;
+            jurosTableBody.appendChild(tr);
+
+            tr.querySelector('.banca-final-dia-input').addEventListener('change', handleLinhaPlanilhaChangeDiaria);
+            tr.querySelector('.meta-btn').addEventListener('click', function() { marcarAcaoHandlerDiaria(this.closest('tr'), 'meta'); });
+            tr.querySelector('.stop-btn').addEventListener('click', function() { marcarAcaoHandlerDiaria(this.closest('tr'), 'stop'); });
+            tr.querySelector('.clear-btn').addEventListener('click', function() { limparMarcacaoHandlerDiaria(this.closest('tr')); });
+
+            if (acaoSalvaNaLinha) {
+                aplicarVisualAcaoDiaria(tr, acaoSalvaNaLinha);
+            }
+
+            // O capital para o próximo dia é o "Montante Final Dia (Real)" desta linha
+            capitalAtualLinha = montanteFinalExibidoNaLinha;
+        }
+
+        // Atualiza o resumo dinâmico com base no capital final real da tabela
+        if (diasPeriodoTotal > 0) {
+            atualizarResumoGlobal(capitalInicialGlobal, taxaDiariaGlobal, diasPeriodoTotal, capitalAtualLinha, diasProcessadosNaTabela);
+        }
+
+        if (!isInternalUpdate) {
+            salvarPlanilhaDiaria();
+        }
+    }
+
+    function aplicarVisualAcaoDiaria(row, tipo) {
         row.classList.remove("meta-hit", "loss-hit");
         row.querySelectorAll(".meta-btn, .stop-btn").forEach(btn => {
             btn.disabled = false;
             btn.classList.remove("active-action");
         });
+        const metaBtn = row.querySelector(".meta-btn");
+        const stopBtn = row.querySelector(".stop-btn");
+        if (tipo === 'meta') {
+            row.classList.add("meta-hit");
+            if(metaBtn) { metaBtn.disabled = true; metaBtn.classList.add("active-action"); }
+            if(stopBtn) stopBtn.disabled = true;
+        } else if (tipo === 'stop') {
+            row.classList.add("loss-hit");
+            if(stopBtn) { stopBtn.disabled = true; stopBtn.classList.add("active-action"); }
+            if(metaBtn) metaBtn.disabled = true;
+        }
     }
-    
-    function atualizarTabelaComExtras() {
-        const capitalInicialGlobal = parseFloat(jcCapitalInput.value.replace(',', '.'));
-        const taxaGlobal = parseFloat(jcTaxaInput.value.replace(',', '.')) / 100;
-        const mesesGlobal = parseInt(jcMesesInput.value);
 
-        if (isNaN(capitalInicialGlobal) || isNaN(taxaGlobal) || isNaN(mesesGlobal) || capitalInicialGlobal <=0 || taxaGlobal < 0 || mesesGlobal < 0) { // mesesGlobal pode ser 0
-            jurosTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding: 20px;'>Dados principais inválidos ou meses = 0.</td></tr>";
-            jcMontanteOutput.value = `R$ ${capitalInicialGlobal > 0 ? capitalInicialGlobal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0,00'}`;
-            jcJurosOutput.value = 'R$ 0,00';
-            jcStopWinOutput.value = `R$ ${capitalInicialGlobal > 0 ? (capitalInicialGlobal * 1.1).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0,00'}`;
-            jcStopLossOutput.value = `R$ ${capitalInicialGlobal > 0 ? (capitalInicialGlobal * 0.9).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0,00'}`;
-            if (mesesGlobal === 0 && capitalInicialGlobal > 0) { // Se meses for 0, limpa a tabela mas atualiza os totais
-                 jurosTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center; padding: 20px;'>0 meses selecionados.</td></tr>";
+    function marcarAcaoHandlerDiaria(row, tipo) {
+        aplicarVisualAcaoDiaria(row, tipo);
+        handleLinhaPlanilhaChangeDiaria();
+    }
+
+    function limparMarcacaoHandlerDiaria(row) {
+        row.classList.remove("meta-hit", "loss-hit");
+        row.querySelectorAll(".meta-btn, .stop-btn").forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove("active-action");
+        });
+        const bancaInput = row.querySelector('.banca-final-dia-input');
+        if (bancaInput) {
+             const capitalInicialValor = parseFloat(bancaInput.dataset.capitalInicioDia) || 0;
+             bancaInput.value = '';
+             bancaInput.placeholder = formatCurrencyDiaria(capitalInicialValor, currentCurrencyDiaria, false);
+        }
+        handleLinhaPlanilhaChangeDiaria();
+    }
+
+    function atualizarResumoGlobal(capitalInicial, taxaDiaria, diasPeriodoTotal, capitalAtualRealDaTabela, diasCorridosNaTabela) {
+        if (isNaN(capitalInicial) || isNaN(taxaDiaria) || isNaN(diasPeriodoTotal) || capitalInicial < 0 || diasPeriodoTotal < 0) {
+            limparResumoPlanilhaDiaria();
+            if (capitalInicial < 0) jcCapitalInput.value = '';
+            if (diasPeriodoTotal < 0) jcDiasPeriodoInput.value = '';
+            return;
+        }
+         if (capitalInicial === 0 && diasPeriodoTotal >=0) {
+             jcMontanteOutput.value = formatCurrencyDiaria(0);
+             jcJurosOutput.value = formatCurrencyDiaria(0);
+             jcStopWinOutput.value = formatCurrencyDiaria(0);
+             jcStopLossOutput.value = formatCurrencyDiaria(0);
+             jcDiasMetaOutput.value = "Capital Zerado";
+             return;
+        }
+
+
+        let montanteFinalProjetadoIdeal = capitalInicial;
+        if (diasPeriodoTotal > 0) {
+            for (let i = 0; i < diasPeriodoTotal; i++) {
+                montanteFinalProjetadoIdeal += montanteFinalProjetadoIdeal * taxaDiaria;
             }
-            return;
-        }
-        
-        // Limpa a tabela antes de recriar as linhas se estiver recalculando do zero
-        // Se for apenas atualização de extras, não precisa limpar e recriar, só atualizar valores.
-        // Para simplificar a lógica de recálculo total com extras, vamos recriar.
-        jurosTableBody.innerHTML = ""; 
-        let capitalAtualParaLinha = capitalInicialGlobal;
-
-        for (let i = 1; i <= mesesGlobal; i++) {
-            // Cria a linha
-            const tr = document.createElement("tr");
-            tr.dataset.mes = i; 
-            
-            // Pega o valor extra se já existir um input para este mês (caso de recalculate com valores antigos)
-            // Esta parte é complexa se os inputs de extra são mantidos entre recálculos.
-            // Para uma lógica mais simples, os extras seriam zerados a cada "Calcular".
-            // Assumindo que os extras são lidos dos inputs atuais se existirem:
-            let valorExtra = 0;
-            // const inputExtraExistente = jurosTableBody.querySelector(`tr[data-mes="${i}"] .extra-input`);
-            // if (inputExtraExistente) valorExtra = parseFloat(inputExtraExistente.value.replace(',', '.')) || 0;
-
-            const jurosDoMes = capitalAtualParaLinha * taxaGlobal;
-            const montanteDoMesSemExtra = capitalAtualParaLinha + jurosDoMes;
-            
-            tr.innerHTML = `
-              <td>${i}</td>
-              <td>R$ ${capitalAtualParaLinha.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-              <td>R$ ${jurosDoMes.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-              <td class="meta-cell">R$ ${montanteDoMesSemExtra.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-              <td style="text-align:center;">
-                <button class="meta-btn" onclick="marcarAcao(this.closest('tr'), 'meta')"><i class="fas fa-check-circle"></i> Meta</button>
-                <button class="stop-btn" onclick="marcarAcao(this.closest('tr'), 'stop')"><i class="fas fa-times-circle"></i> Stop</button>
-                <button class="clear-btn" onclick="limparMarcacao(this.closest('tr'))"><i class="fas fa-eraser"></i> Limpar</button>
-              </td>
-              <td>
-                <input type="number" class="extra-input" placeholder="0,00" step="any" onchange="atualizarTabelaComExtras()">
-              </td>
-            `;
-            jurosTableBody.appendChild(tr);
-            // Atualiza o capital para a próxima iteração, incluindo o extra desta linha
-            // (o input de extra será lido na próxima chamada de atualizarTabelaComExtras se o usuário mudar)
-            const inputExtraAtual = tr.querySelector('.extra-input');
-            // inputExtraAtual.value = valorExtra.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}); // Se quiséssemos persistir o extra visualmente
-
-            capitalAtualParaLinha = montanteDoMesSemExtra + valorExtra; // valorExtra aqui é 0 no primeiro 'Calcular'
-        }
-        atualizarTotaisPlanilha(); // Atualiza os campos de resumo
-    }
-
-
-    function atualizarTotaisPlanilha() {
-        const capitalInicialGlobal = parseFloat(jcCapitalInput.value.replace(',', '.'));
-        const mesesGlobal = parseInt(jcMesesInput.value);
-        const taxaGlobal = parseFloat(jcTaxaInput.value.replace(',', '.')) / 100;
-
-
-        if (isNaN(capitalInicialGlobal) || isNaN(mesesGlobal) || isNaN(taxaGlobal)) {
-             jcMontanteOutput.value = 'R$ 0,00'; jcJurosOutput.value = 'R$ 0,00';
-             jcStopWinOutput.value = 'R$ 0,00'; jcStopLossOutput.value = 'R$ 0,00';
-            return;
+        } else {
+            montanteFinalProjetadoIdeal = capitalInicial;
         }
 
-        let montanteFinalCalculado = capitalInicialGlobal; 
+        const jurosTotaisProjetados = montanteFinalProjetadoIdeal - capitalInicial;
+        const stopWinAlvoProjetado = montanteFinalProjetadoIdeal * 1.10;
+        const stopLossGlobal = capitalInicial * 0.90;
 
-        if (mesesGlobal > 0) {
-            let capitalAcumulado = capitalInicialGlobal;
-            for (let i = 1; i <= mesesGlobal; i++) {
-                const linha = jurosTableBody.querySelector(`tr[data-mes="${i}"]`);
-                if (!linha) { // Se a linha não existe, algo está errado ou mesesGlobal > linhas reais
-                    // Tenta usar o último capital acumulado. Não ideal, mas evita NaN.
-                    montanteFinalCalculado = capitalAcumulado;
-                    break;
+        jcMontanteOutput.value = formatCurrencyDiaria(montanteFinalProjetadoIdeal);
+        jcJurosOutput.value = formatCurrencyDiaria(jurosTotaisProjetados);
+        jcStopWinOutput.value = formatCurrencyDiaria(stopWinAlvoProjetado);
+        jcStopLossOutput.value = formatCurrencyDiaria(stopLossGlobal);
+
+        if (capitalAtualRealDaTabela >= stopWinAlvoProjetado) {
+            jcDiasMetaOutput.value = "Meta Atingida!";
+        } else if (capitalAtualRealDaTabela <= stopLossGlobal && diasCorridosNaTabela > 0) {
+            jcDiasMetaOutput.value = "Stop Loss Atingido!";
+        } else if (capitalAtualRealDaTabela <= 0 && diasCorridosNaTabela > 0) {
+             jcDiasMetaOutput.value = "Banca Zerada!";
+        } else if (taxaDiaria <= 0 && stopWinAlvoProjetado > capitalAtualRealDaTabela) { // Adicionado verificação de SW > Capital Atual
+            jcDiasMetaOutput.value = "Taxa <= 0";
+        } else if (taxaDiaria > 0 && capitalAtualRealDaTabela > 0) { // Só calcula se taxa e capital forem positivos
+            let capitalSimulacao = capitalAtualRealDaTabela;
+            let diasRestantesParaMeta = 0;
+            const maxDiasSimulacaoAdicionais = Math.max(diasPeriodoTotal - diasCorridosNaTabela + 30, 365); // Aumenta um pouco a janela
+            let atingiuMetaSimulacao = false;
+
+            if (capitalSimulacao >= stopWinAlvoProjetado) {
+                diasRestantesParaMeta = 0;
+                atingiuMetaSimulacao = true;
+            } else {
+                for (let dia = 1; dia <= maxDiasSimulacaoAdicionais; dia++) {
+                    capitalSimulacao += capitalSimulacao * taxaDiaria;
+                    if (capitalSimulacao >= stopWinAlvoProjetado) {
+                        diasRestantesParaMeta = dia;
+                        atingiuMetaSimulacao = true;
+                        break;
+                    }
                 }
-                
-                // Recalcula o juros da linha baseado no capital acumulado até ela
-                const jurosDaLinha = capitalAcumulado * taxaGlobal;
-                const montanteDaLinhaSemExtra = capitalAcumulado + jurosDaLinha;
-
-                const inputExtraEl = linha.querySelector('.extra-input');
-                const valorExtraStr = inputExtraEl ? inputExtraEl.value.replace(',', '.') : '0';
-                const valorExtra = parseFloat(valorExtraStr) || 0;
-                
-                capitalAcumulado = montanteDaLinhaSemExtra + valorExtra;
-                montanteFinalCalculado = capitalAcumulado; // O montante final é o capital acumulado da última linha processada
             }
-        } else if (mesesGlobal === 0) {
-            montanteFinalCalculado = capitalInicialGlobal;
+
+            if (atingiuMetaSimulacao) {
+                jcDiasMetaOutput.value = `${diasRestantesParaMeta} dia(s) restante(s)`;
+            } else {
+                jcDiasMetaOutput.value = `> ${maxDiasSimulacaoAdicionais} dias`;
+            }
+        } else if (diasPeriodoTotal === 0 && capitalInicial > 0){ // Trata o caso de 0 dias no período
+             jcDiasMetaOutput.value = (taxaDiaria > 0 && stopWinAlvoProjetado > capitalInicial) ? `1 dia(s)` : "N/A";
+        } else {
+            jcDiasMetaOutput.value = "N/A"; // Fallback
         }
-
-
-        const jurosTotaisGlobal = montanteFinalCalculado - capitalInicialGlobal;
-        const stopWinGlobal = montanteFinalCalculado * 1.10; 
-        const stopLossGlobal = capitalInicialGlobal * 0.90;  
-
-        jcMontanteOutput.value = `R$ ${montanteFinalCalculado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        jcJurosOutput.value = `R$ ${jurosTotaisGlobal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        jcStopWinOutput.value = `R$ ${stopWinGlobal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        jcStopLossOutput.value = `R$ ${stopLossGlobal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
-    window.addEventListener('load', () => {
-        novoBot(); // Começa no estado de "novo bot"
-        atualizarListaBots(); // Carrega a lista
-    });
 
+    // Inicialização e Event Listeners Globais
+    window.addEventListener('load', () => {
+        novoBot();
+        atualizarListaBots();
+
+        [jcCapitalInput, jcTaxaInput, jcDiasPeriodoInput].forEach(input => {
+            input.addEventListener('change', () => {
+                if (planilhaFull.classList.contains('active')) {
+                    calcularJurosCompostosDiarios(null, false);
+                }
+            });
+        });
+
+        jcCurrencySelect.addEventListener('change', (e) => {
+            currentCurrencyDiaria = e.target.value;
+            if (planilhaFull.classList.contains('active')) {
+                const dadosAtuais = carregarPlanilhaSalvaDiaria();
+                calcularJurosCompostosDiarios(dadosAtuais?.linhas, true);
+                salvarPlanilhaDiaria();
+            } else {
+                updateCurrencyDisplayDiaria();
+            }
+        });
+    });
   </script>
 </body>
 </html>
